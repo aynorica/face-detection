@@ -11,16 +11,16 @@ const handleSignin = (req, res, bcrypt, db)=> {
             if(isValid) {
                 return db.select('*')
                     .from('users')
-                    .where('email', '=', req.body.email)
+                    .where('email', '=', email)
                     .then(user => {
                         res.json(user[0])
-                            .catch(err => res.status(400).json('unable to get user'))
+                            .catch(err => res.status(400).json('unable to get user,' + err))
                     })
             }else {
                 res.status(400).json('wrong credentials');
             }
         })
-        .catch(err => res.status(400).json('wrong Credentials'))
+        .catch(err => res.status(400).json('wrong Credentials,' + err))
 };
 
 module.exports = {
